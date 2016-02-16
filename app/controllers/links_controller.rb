@@ -1,6 +1,9 @@
 class LinksController < ApplicationController
+  
+  before_filter :authenticate_user!, except: [:index, :show]
   before_action :set_link, only: [:show, :edit, :update, :destroy]
-  before_filter : authenticate_user!, except: [:index,:show]
+
+
 
   # GET /links
   # GET /links.json
@@ -36,6 +39,18 @@ class LinksController < ApplicationController
         format.json { render json: @link.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def upvote
+      @link = Link.find(params[:id])
+      @link.upvote_by current_user
+      redirect_to :back
+  end
+
+  def downvote
+      @link = Link.find(params[:id])
+      @link.downvote_by current_user
+      redirect_to :back
   end
 
   # PATCH/PUT /links/1

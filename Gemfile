@@ -52,3 +52,4 @@ end
 
 
 gem 'devise', '~> 3.5', '>= 3.5.6'
+gem 'acts_as_votable', '~> 0.10.0'
