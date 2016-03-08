@@ -1,0 +1,10 @@
+<%= div_for(comment) do %>
+<p class="lead"><%= comment.body %> </p><br>
+<p><small> Submitted by <%= comment.user.email %> at <%= comment.created_at %> </small></p>
+<% if comment.user == current_user %>
+            <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
+            <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+
+
+<% end %>
