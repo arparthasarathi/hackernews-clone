@@ -1,14 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Title:</strong>
-  <%= @link.title %>
+  <h1><a href = "<%= @link.url %>"><%= @link.title %></a><br>
+  <h6>Submitted by <%= @link.user.email %> </h6>
 </p>
 
-<p>
-  <strong>Url:</strong>
-  <%= @link.url %>
-</p>
-
-<%= link_to 'Edit', edit_link_path(@link) %> |
+<% if @link.user == current_user %>
+<%= link_to 'Edit', edit_link_path(@link) %> 
 <%= link_to 'Back', links_path %>
+<% end %>
+
+<%= render :partial => @link.comments %>
+
+<%= simple_form_for [@link, Comment.new] do |f| %>
+ <%= f.text_area :body %>
+ <%= f.submit "Add Comment" %>
+<% end %>
